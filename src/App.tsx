@@ -1,34 +1,22 @@
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { Routes, Route } from "react-router-dom";
-import BlogList from "./pages/BlogList";
+import Index from "./pages/Index";
 import BlogDetail from "./pages/BlogDetail";
-import BlogForm from "./components/BlogForm";
+import NotFound from "./pages/NotFound";
 
-export default function App() {
-  return (
-    <div className="h-screen grid grid-cols-[400px_1fr]">
-      {/* Left panel */}
-      <div className="border-r p-4 overflow-y-auto space-y-4">
-        <BlogForm />
-        <BlogList />
-      </div>
+const App = () => (
+  <TooltipProvider>
+    <Toaster />
+    <Sonner />
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/blog/:id" element={<BlogDetail />} />
+      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </TooltipProvider>
+);
 
-      {/* Right panel */}
-      <div className="p-6 overflow-y-auto">
-        <Routes>
-          <Route
-            path="/blogs/:id"
-            element={<BlogDetail />}
-          />
-          <Route
-            path="*"
-            element={
-              <div className="text-gray-400">
-                Select a blog to view details
-              </div>
-            }
-          />
-        </Routes>
-      </div>
-    </div>
-  );
-}
+export default App;

@@ -8,7 +8,7 @@ export const getBlogs = async (): Promise<Blog[]> => {
   return res.json();
 };
 
-export const getBlogById = async (id: string): Promise<Blog> => {
+export const getBlogById = async (id: string | number): Promise<Blog> => {
   const res = await fetch(`${BASE_URL}/${id}`);
   if (!res.ok) throw new Error("Failed to fetch blog");
   return res.json();
@@ -23,4 +23,12 @@ export const createBlog = async (blog: Blog): Promise<Blog> => {
 
   if (!res.ok) throw new Error("Failed to create blog");
   return res.json();
+};
+
+export const deleteBlog = async (id: string | number): Promise<void> => {
+  const res = await fetch(`${BASE_URL}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) throw new Error("Failed to delete blog");
 };
