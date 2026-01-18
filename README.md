@@ -36,9 +36,36 @@ Welcome to the CA Monk Blog Application assignment! This project tests your abil
    ```
    The app will run on `http://localhost:5173`
 
-## Assignment Tasks
+## Features
 
-You are required to build a blog application with the following features:
+### Core Functionality
+- **View All Blogs** - Display all blog posts in a scrollable sidebar with infinite scroll
+- **Blog Details** - View individual blog posts with full content, cover images, and metadata
+- **Create Blogs** - Create new blog posts with title, category, description, content, and cover image upload
+- **Delete Blogs** - Delete blog posts with confirmation dialogs from both sidebar and detail pages
+- **Dynamic Content Loading** - Click any blog in the sidebar to view its content in the main area without navigation
+- **Real-time Updates** - UI automatically updates when blogs are created or deleted using TanStack Query
+
+### User Interface Features
+- **Sort Functionality** - Sort blogs by:
+  - Most Recent (newest first)
+  - Oldest First
+  - Alphabetical (A-Z)
+- **Infinite Scroll** - Sidebar shows 5 blogs initially and automatically loads 5 more as you scroll
+- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
+- **Professional UI** - Modern, clean interface with:
+  - Centered hero section with elegant typography
+  - Sleek footer with organized links and social media icons
+  - Smooth animations and transitions
+  - Custom scrollbars and hover effects
+
+### User Experience
+- **Loading States** - Skeleton loaders while data is being fetched
+- **Error Handling** - User-friendly error messages with retry options
+- **Toast Notifications** - Success and error feedback using Sonner
+- **Confirmation Dialogs** - Prevent accidental deletions with confirmation modals
+- **Active Blog Highlighting** - Currently selected blog is highlighted in the sidebar
+- **Image Compression** - Automatic image compression for optimized storage
 
 ### Required Technologies
 - ✅ **TanStack Query** - For server state management and data fetching
@@ -63,22 +90,44 @@ UI IMAGE - ![UI-refernece](ui.jpeg)
 
 For the blog content, use plain text — no need to use HTML-formatted text.
 
-### Tasks to Complete
+## Implementation Details
+
+### Completed Features
 
 #### 1. **Get All Blogs**
-- Create a component to display all blogs using `GET /blogs`
-- Use TanStack Query for data fetching
-- Handle loading and error states
+- Implemented ArticleSidebar component that displays all blogs using `GET /blogs`
+- Uses TanStack Query for data fetching with proper loading and error states
+- Features infinite scroll (shows 5 blogs initially, loads more on scroll)
+- Includes sort functionality (recent, oldest, alphabetical)
 
 #### 2. **Get Blog by ID**
-- Implement single blog view using `GET /blogs/:id`
-- Use TanStack Query for data fetching
+- Implemented BlogDetail page for individual blog view using `GET /blogs/:id`
+- Implemented ArticleContent component for dynamic content display on home page
+- Uses TanStack Query for data fetching
+- Displays cover image, category, read time, date, and full content
 
 #### 3. **Create a New Blog**
-- Build a form to create a new blog using `POST /blogs`
-- Invalidate queries after successful creation
+- Implemented CreateBlogModal with form validation
+- Supports image upload with automatic compression
+- Uses `POST /blogs` API endpoint
+- Automatically invalidates queries after successful creation
+- New blogs appear immediately in the sidebar
 
-> Organize your components in a suitable file structure within the `src/` directory.
+#### 4. **Delete Blogs**
+- Delete functionality available in both BlogDetail page and sidebar cards
+- Confirmation dialogs prevent accidental deletions
+- Uses `DELETE /blogs/:id` API endpoint
+- Automatically updates UI after deletion
+
+#### 5. **Dynamic Content Loading**
+- Click any blog card in the sidebar to view its content in the main area
+- Uses URL search parameters to track selected blog
+- No page navigation required - seamless user experience
+
+#### 6. **Sort and Filter**
+- Sort blogs by date (recent/oldest) or alphabetically
+- Frontend-based sorting for instant results
+- Sort option persists during session
 
 ### API Endpoints
 
@@ -89,6 +138,7 @@ The JSON Server provides the following endpoints:
 | GET | `/blogs` | Get all blogs |
 | GET | `/blogs/:id` | Get a specific blog by ID |
 | POST | `/blogs` | Create a new blog |
+| DELETE | `/blogs/:id` | Delete a blog by ID |
 
 ### Evaluation Criteria
 
@@ -120,14 +170,43 @@ Your submission will be evaluated on:
 description: A short summary of the blog  
 content: The full content of the blog
 
-## Tips
+## Usage Guide
+
+### Viewing Blogs
+1. The home page displays all blogs in the left sidebar
+2. Click on any blog card to view its full content in the main area
+3. Use the sort dropdown to organize blogs by date or alphabetically
+4. Scroll down in the sidebar to load more blogs automatically
+
+### Creating a Blog
+1. Click the "Create Blog" button in the header
+2. Fill in the required fields:
+   - Title
+   - Category (Finance, Career, Regulations, Skills, or Technology)
+   - Overview (short description)
+   - Content (full blog content)
+   - Cover Image (upload an image file - automatically compressed)
+3. Click "Publish Blog" to save
+4. The new blog appears immediately in the sidebar
+
+### Deleting a Blog
+1. **From Sidebar**: Hover over a blog card to reveal the delete button, then confirm deletion
+2. **From Detail Page**: Click the "Delete Blog" button and confirm in the dialog
+3. The blog is removed from both the UI and the database
+
+### Finding Recent Blogs
+- Use the sort dropdown in the sidebar and select "Most Recent"
+- Blogs are automatically sorted by date (newest first)
+- The sidebar shows the most recent blogs at the top
+
+## Development Tips
 
 - Set up TanStack Query's `QueryClientProvider` in your app root
 - Configure Tailwind CSS properly in your config files
 - Use shadcn components like `Card`, `Button`, `Input`, etc.
 - Handle loading states with skeletons
 - Implement proper error boundaries
-- Consider using React Router for navigation (optional)
+- Use React Router for navigation between pages
 
 ## Submission
 
